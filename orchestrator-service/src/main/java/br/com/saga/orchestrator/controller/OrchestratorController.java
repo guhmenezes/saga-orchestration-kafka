@@ -1,36 +1,22 @@
 package br.com.saga.orchestrator.controller;
 
-import br.com.saga.orchestrator.event.OrderCreatedEvent;
-import br.com.saga.orchestrator.producer.OrchestratorProducer;
+import br.com.saga.orchestrator.dto.CreateOrderRequestDTO;
+import br.com.saga.orchestrator.service.OrchestratorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
-@RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrchestratorController {
 
-    private final OrchestratorProducer producer;
+    private final OrchestratorService service;
 
-    public OrchestratorController(OrchestratorProducer producer) {
-        this.producer = producer;
-    }
+    @PostMapping("/order")
+    public String startSaga(@RequestBody CreateOrderRequestDTO request) {
+        String orderId = service.startSaga(request);
 
-    @PostMapping
-    public String createOrder() {
-
-        String orderId = UUID.randomUUID().toString();
-
-        OrderCreatedEvent event = new OrderCreatedEvent(
-                orderId,
-                "product-1",
-                1
-        );
-
-        producer.send(event);
-
-        return "Saga started for order: " + orderId;
+        return "Saga started: " + orderId;
     }
 }

@@ -1,15 +1,25 @@
 package br.com.saga.order.consumer;
 
-import br.com.saga.order.event.StockReservedEvent;
+import br.com.saga.common.event.CreateOrderEvent;
+import br.com.saga.common.event.OrderCreatedEvent;
+import br.com.saga.order.producer.OrderProducer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderConsumer {
 
-    @KafkaListener(topics = "stock-reserved", groupId = "order-group")
-    public void consume(StockReservedEvent event) {
+    private final OrderProducer producer;
 
-        System.out.println("🎯 Order completed: " + event.orderId());
+    public OrderConsumer(OrderProducer producer) {
+        this.producer = producer;
+    }
+
+    @KafkaListener(topics = "create-order")
+    public void consume(CreateOrderEvent event) {
+
+        System.out.println("📝 Creating order: " + event.orderId());
+
+        producer.send(new OrderCreatedEvent(event.orderId(), event.productId(), event.quantity()));
     }
 }

@@ -1,16 +1,31 @@
 package br.com.saga.orchestrator.consumer;
 
-import br.com.saga.orchestrator.event.StockReservedEvent;
+import br.com.saga.common.event.OrderCreatedEvent;
+import br.com.saga.common.event.PaymentApprovedEvent;
+import br.com.saga.common.event.StockReservedEvent;
+import br.com.saga.orchestrator.service.OrchestratorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class OrchestratorConsumer {
 
-    @KafkaListener(topics = "stock-reserved", groupId = "orchestrator-group")
-    public void consume(StockReservedEvent event) {
+    private final OrchestratorService service;
 
-        System.out.println("🧠 Orchestrator received stock confirmation for order: " + event.orderId());
+    @KafkaListener(topics = "order-created")
+    public void orderCreated(OrderCreatedEvent event) {
+        service.handleOrderCreated(event);
+    }
 
+    @KafkaListener(topics = "stock-reserved")
+    public void stockReserved(StockReservedEvent event) {
+        service.handleStockReserved(event);
+    }
+
+    @KafkaListener(topics = "payment-approved")
+    public void paymentApproved(PaymentApprovedEvent event) {
+        service.handlePaymentApproved(event);
     }
 }

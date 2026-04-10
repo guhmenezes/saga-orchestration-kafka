@@ -1,6 +1,6 @@
 package br.com.saga.order.producer;
 
-import br.com.saga.order.event.OrderCreatedEvent;
+import br.com.saga.common.event.OrderCreatedEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

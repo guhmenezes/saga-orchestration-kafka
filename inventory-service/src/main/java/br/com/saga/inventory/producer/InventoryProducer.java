@@ -1,6 +1,6 @@
 package br.com.saga.inventory.producer;
 
-import br.com.saga.inventory.event.StockReservedEvent;
+import br.com.saga.common.event.StockReservedEvent;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

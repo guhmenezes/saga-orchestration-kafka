@@ -1,7 +1,7 @@
 package br.com.saga.inventory.consumer;
 
-import br.com.saga.inventory.event.OrderCreatedEvent;
-import br.com.saga.inventory.event.StockReservedEvent;
+import br.com.saga.common.event.OrderCreatedEvent;
+import br.com.saga.common.event.StockReservedEvent;
 import br.com.saga.inventory.producer.InventoryProducer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class InventoryConsumer {
 
         StockReservedEvent response = new StockReservedEvent(
                 event.orderId(),
-                event.product(),
+                event.productId(),
                 event.quantity()
         );
 
