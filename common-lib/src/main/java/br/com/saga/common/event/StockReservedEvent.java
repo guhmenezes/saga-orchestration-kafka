@@ -1,7 +1,7 @@
-package br.com.saga.order.event;
+package br.com.saga.common.event;
 
 public record StockReservedEvent(
         String orderId,
-        String product,
+        String productId,
         int quantity
 ) {}
