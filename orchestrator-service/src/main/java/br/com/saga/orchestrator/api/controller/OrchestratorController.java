@@ -1,7 +1,7 @@
-package br.com.saga.orchestrator.controller;
+package br.com.saga.orchestrator.api.controller;
 
-import br.com.saga.orchestrator.dto.CreateOrderRequestDTO;
-import br.com.saga.orchestrator.service.OrchestratorService;
+import br.com.saga.orchestrator.api.dto.CreateOrderRequestDTO;
+import br.com.saga.orchestrator.core.service.SagaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrchestratorController {
 
-    private final OrchestratorService service;
+    private final SagaService service;
 
     @PostMapping("/order")
     public String startSaga(@RequestBody CreateOrderRequestDTO request) {

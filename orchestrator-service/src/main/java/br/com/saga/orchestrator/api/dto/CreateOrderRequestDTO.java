@@ -1,4 +1,4 @@
-package br.com.saga.orchestrator.dto;
+package br.com.saga.orchestrator.api.dto;
 
 public record CreateOrderRequestDTO(
         String productId,

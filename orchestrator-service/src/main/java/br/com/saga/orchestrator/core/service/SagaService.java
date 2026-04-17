@@ -1,4 +1,4 @@
-package br.com.saga.orchestrator.service;
+package br.com.saga.orchestrator.core.service;
 
 import br.com.saga.common.event.CreateOrderEvent;
 import br.com.saga.common.event.OrderCreatedEvent;
@@ -6,8 +6,8 @@ import br.com.saga.common.event.PaymentRequestEvent;
 import br.com.saga.common.event.PaymentApprovedEvent;
 import br.com.saga.common.event.ReserveStockEvent;
 import br.com.saga.common.event.StockReservedEvent;
-import br.com.saga.orchestrator.dto.CreateOrderRequestDTO;
-import br.com.saga.orchestrator.producer.OrchestratorProducer;
+import br.com.saga.orchestrator.api.dto.CreateOrderRequestDTO;
+import br.com.saga.orchestrator.infrastructure.kafka.producer.OrchestratorProducer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrchestratorService {
+public class SagaService {
 
     private final OrchestratorProducer producer;
 

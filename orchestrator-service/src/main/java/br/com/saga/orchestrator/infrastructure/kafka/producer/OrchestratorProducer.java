@@ -1,4 +1,4 @@
-package br.com.saga.orchestrator.producer;
+package br.com.saga.orchestrator.infrastructure.kafka.producer;
 
 import br.com.saga.common.event.CreateOrderEvent;
 import br.com.saga.common.event.PaymentRequestEvent;

@@ -1,9 +1,9 @@
-package br.com.saga.orchestrator.consumer;
+package br.com.saga.orchestrator.infrastructure.kafka.consumer;
 
 import br.com.saga.common.event.OrderCreatedEvent;
 import br.com.saga.common.event.PaymentApprovedEvent;
 import br.com.saga.common.event.StockReservedEvent;
-import br.com.saga.orchestrator.service.OrchestratorService;
+import br.com.saga.orchestrator.core.service.SagaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrchestratorConsumer {
 
-    private final OrchestratorService service;
+    private final SagaService service;
 
     @KafkaListener(topics = "order-created")
     public void orderCreated(OrderCreatedEvent event) {
