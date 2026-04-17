@@ -17,3 +17,7 @@ spring:
       properties:
         spring.json.trusted.packages: "*"
         spring.json.use.type.headers: true
+
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
