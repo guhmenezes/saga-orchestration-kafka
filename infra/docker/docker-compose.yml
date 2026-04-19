@@ -25,11 +25,13 @@ services:
     image: postgres:15
     container_name: saga-postgres
     environment:
-      POSTGRES_DB: saga_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    volumes:
+      - ../sql:/docker-entrypoint-initdb.d:ro
+      - postgres-data:/var/lib/postgresql/data
 
   mongo:
     image: mongo:latest
@@ -38,4 +40,9 @@ services:
       - "27017:27017"
     container_name: saga-mongo
     environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
       MONGO_INITDB_DATABASE: saga_db
+
+volumes:
+  postgres-data:
