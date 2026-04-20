@@ -6,13 +6,13 @@ spring:
     name: order-service
 
   datasource:
-    url: ${DB_URL}
+    url: ${DB_URL}/order_db
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 
   kafka:
