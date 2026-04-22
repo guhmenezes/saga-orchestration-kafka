@@ -1,9 +1,13 @@
+server:
+  servlet:
+    context-path: /api
+
 spring:
   application:
     name: orchestrator-service
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_HOST:localhost}:9092
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -20,4 +24,4 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGO_URI}
+      uri: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_URI}?authSource=admin

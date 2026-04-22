@@ -6,17 +6,17 @@ spring:
     name: inventory-service
 
   datasource:
-    url: ${DB_URL}
+    url: ${DB_URL}/inventory_db
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_HOST:localhost}:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

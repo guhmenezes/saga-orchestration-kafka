@@ -1,7 +1,7 @@
 package br.com.saga.orchestrator.core.domain;
 
 public enum SagaStatus {
-    STARTED,
+    SAGA_STARTED,
     ORDER_SUCCESS,
     ORDER_FAIL,
     INVENTORY_SUCCESS,
@@ -9,7 +9,7 @@ public enum SagaStatus {
     PAYMENT_SUCCESS,
     PAYMENT_FAIL,
     COMPENSATING,
-    COMPENSATED,
+    SAGA_COMPENSATED,
     SAGA_FINISHED,
     SAGA_FAILED
 }
