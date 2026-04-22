@@ -1,7 +1,8 @@
 package br.com.saga.inventory.core.service;
 
-import br.com.saga.common.event.OrderPayload;
+import br.com.saga.common.payload.OrderPayload;
 import br.com.saga.inventory.core.domain.Inventory;
+import br.com.saga.inventory.core.exceptions.InsufficientStockException;
 import br.com.saga.inventory.core.repository.InventoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,14 @@ public class InventoryService {
         Inventory inventory = repository.findByProductId(payload.productId())
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado no estoque"));
 
-        if (inventory.getQuantity() < payload.quantity()) {
-            throw new RuntimeException("Estoque insuficiente para o produto: " + payload.productId());
+        int available = inventory.getQuantity();
+        int requested = payload.quantity();
+
+        if (available < requested) {
+            throw new InsufficientStockException(requested, available, payload.productId());
         }
 
-        inventory.setQuantity(inventory.getQuantity() - payload.quantity());
+        inventory.setQuantity(available - requested);
         repository.save(inventory);
     }
 

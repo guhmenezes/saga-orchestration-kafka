@@ -1,6 +1,6 @@
 package br.com.saga.order.core.service;
 
-import br.com.saga.common.event.OrderPayload;
+import br.com.saga.common.payload.OrderPayload;
 import br.com.saga.order.core.domain.Order;
 import br.com.saga.order.core.domain.OrderStatus;
 import br.com.saga.order.core.repository.OrderRepository;
@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -26,6 +27,7 @@ public class OrderService {
                 .orderId(payload.orderId())
                 .productId(payload.productId())
                 .quantity(payload.quantity())
+                .totalValue(BigDecimal.ZERO)
                 .status(OrderStatus.PENDING)
                 .createdAt(LocalDateTime.now())
                 .build();
